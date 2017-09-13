@@ -3,4 +3,9 @@
     <string name="tab1">Home</string>
     <string name="tab2">Settings</string>
     <string name="save">Save</string>
+    <string name="car_number">Enter your car number</string>
+    <string name="oops">Oops</string>
+    <string name="emptyinput">Your Input is Empty</string>
+    <string name="positivebutton">OK</string>
+    <string name="neutralbutton">Cancel</string>
 </resources>

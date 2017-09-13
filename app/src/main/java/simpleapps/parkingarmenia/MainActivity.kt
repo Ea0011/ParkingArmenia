@@ -1,5 +1,6 @@
 package simpleapps.parkingarmenia
 
+import android.content.Context
 import android.support.v7.app.AppCompatActivity
 import android.os.Bundle
 import android.support.design.widget.TabLayout
@@ -8,6 +9,9 @@ import android.support.v4.app.FragmentManager
 import android.support.v4.app.FragmentPagerAdapter
 import android.support.v4.view.ViewPager
 import android.util.Log
+import android.view.MotionEvent
+import android.view.View
+import android.widget.EditText
 
 class MainActivity : AppCompatActivity() {
 
@@ -23,22 +27,24 @@ class MainActivity : AppCompatActivity() {
         viewPager = findViewById(R.id.viewpager) as ViewPager
         viewPager.adapter = CustomAdapter(supportFragmentManager)
         tabView.setupWithViewPager(viewPager)
+        viewPager.setOnClickListener({_ : View ->
+            Log.i(secret, "ViewPager is Clicked on But the Button is not")
+        })
         /**
         * Tab Selected Event Handler
          */
         class OnTabSelectedListener : TabLayout.OnTabSelectedListener {
             override fun onTabReselected(tab: TabLayout.Tab?) {
-                viewPager.currentItem = tab!!.position
+                Log.i(secret, tab!!.position.toString() + "Reselected")
             }
 
             override fun onTabUnselected(tab: TabLayout.Tab?) {
-                viewPager.currentItem = tab!!.position
-                Log.i(secret, tab.position.toString())
+                Log.i(secret, tab!!.position.toString() + "Unselected")
             }
 
             override fun onTabSelected(tab: TabLayout.Tab?) {
-                viewPager.currentItem = tab!!.position
-                Log.i(secret, tab.position.toString())
+                viewPager.setCurrentItem(tab!!.position)
+                Log.i(secret, tab.position.toString() + "Selected")
             }
 
         }
@@ -48,13 +54,11 @@ class MainActivity : AppCompatActivity() {
      Custom Adapter Class
      */
     private class CustomAdapter(fmManager : FragmentManager) : FragmentPagerAdapter(fmManager) {
-        private val fragments : List<String> = listOf(R.string.tab1.toString(), R.string.tab2.toString())
+        private val fragments : List<String> = listOf("Home", "Settings")
         override fun getItem(position: Int): Fragment? {
             when(position) {
                 0 -> return Fragment1()
-
                 1 -> return Fragment2()
-
                 else -> return null
             }
         }
