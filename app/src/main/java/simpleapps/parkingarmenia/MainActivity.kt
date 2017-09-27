@@ -1,6 +1,7 @@
 package simpleapps.parkingarmenia
 
 import android.content.Context
+import android.content.SharedPreferences
 import android.support.v7.app.AppCompatActivity
 import android.os.Bundle
 import android.support.design.widget.TabLayout
@@ -9,37 +10,43 @@ import android.support.v4.app.FragmentManager
 import android.support.v4.app.FragmentPagerAdapter
 import android.support.v4.view.ViewPager
 import android.util.Log
-import android.view.MotionEvent
-import android.view.View
-import android.widget.EditText
 
 class MainActivity : AppCompatActivity() {
 
     private val secret : String = "logSec"
     private lateinit var tabView : TabLayout
     private lateinit var viewPager : ViewPager
+    private lateinit var preferences : SharedPreferences
 
     override fun onCreate(savedInstanceState : Bundle?) : Unit {
         super.onCreate(savedInstanceState)
-        Log.i(secret, "activity created")
         setContentView(R.layout.activity_main)
+        preferences = getSharedPreferences("carid", Context.MODE_PRIVATE)
         tabView = findViewById(R.id.tabView) as TabLayout
         viewPager = findViewById(R.id.viewpager) as ViewPager
         viewPager.adapter = CustomAdapter(supportFragmentManager)
         tabView.setupWithViewPager(viewPager)
-        viewPager.setOnClickListener({_ : View ->
-            Log.i(secret, "ViewPager is Clicked on But the Button is not")
-        })
         /**
         * Tab Selected Event Handler
          */
         class OnTabSelectedListener : TabLayout.OnTabSelectedListener {
+            private fun getFragment(index : Int) : Fragment {
+                return supportFragmentManager.findFragmentByTag("android:switcher:" + R.id.viewpager + ":" + index)
+            }
+
             override fun onTabReselected(tab: TabLayout.Tab?) {
-                Log.i(secret, tab!!.position.toString() + "Reselected")
+                viewPager.setCurrentItem(tab!!.position)
             }
 
             override fun onTabUnselected(tab: TabLayout.Tab?) {
-                Log.i(secret, tab!!.position.toString() + "Unselected")
+                viewPager.setCurrentItem(tab!!.position)
+                when(tab.position) {
+                    1 -> {
+                        val frag2 : Fragment2 = getFragment(1) as Fragment2
+                        frag2.setNumber(preferences.getString("number", ""))
+                        frag2.clearFocusForText()
+                    }
+                }
             }
 
             override fun onTabSelected(tab: TabLayout.Tab?) {
