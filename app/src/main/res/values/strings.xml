@@ -1,5 +1,5 @@
 <resources>
-    <string name="app_name">ParkingArmenia</string>
+    <string name="app_name">Parking Armenia</string>
     <string name="tab1">Home</string>
     <string name="tab2">Settings</string>
     <string name="save">Save</string>
@@ -14,4 +14,8 @@
     <string name="suretoreset">Do you want to reset your car palette number?</string>
     <string name="yes">Yes</string>
     <string name="no">No</string>
+    <string name="currentnum">current number is:</string>
+    <string name="_1_hour">1 hour</string>
+    <string name="_1_day">1 day</string>
+    <string name="nopayment">No Current Payments</string>
 </resources>

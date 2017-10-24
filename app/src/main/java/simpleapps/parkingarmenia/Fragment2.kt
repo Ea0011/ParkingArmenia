@@ -1,5 +1,6 @@
 package simpleapps.parkingarmenia
 
+import android.annotation.SuppressLint
 import android.app.Activity
 import android.content.Context
 import android.content.DialogInterface
@@ -14,6 +15,7 @@ import android.view.ViewGroup
 import android.view.inputmethod.InputMethodManager
 import android.widget.Button
 import android.widget.EditText
+import android.widget.TextView
 import android.widget.Toast
 import java.util.regex.Matcher
 import java.util.regex.Pattern
@@ -27,6 +29,7 @@ class Fragment2 : Fragment() {
     private lateinit var setText : EditText
     private lateinit var reset : Button
     private lateinit var preferences : SharedPreferences
+    private lateinit var currentNum: TextView
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -46,18 +49,21 @@ class Fragment2 : Fragment() {
         super.onStop()
     }
 
-    private fun formatText(str : String) : String {
-        return str.replace("\\s".toRegex(), "").toLowerCase()
-    }
+    private fun formatText(str: String): String = str.replace("\\s".toRegex(), "").toLowerCase()
 
+    @SuppressLint("SetTextI18n")
     override fun onCreateView(inflater: LayoutInflater?, container: ViewGroup?, savedInstanceState: Bundle?): View {
         preferences = activity.getSharedPreferences("carid", Context.MODE_PRIVATE)
         val editor : SharedPreferences.Editor = preferences.edit()
+        val currentNumber = preferences.getString("number", "")
         setView = inflater!!.inflate(R.layout.frag2, container, false)
         setText = setView.findViewById(R.id.settext) as EditText
-        setText.setText(preferences.getString("number", ""))
+        setText.setText(currentNumber)
         setButton = setView.findViewById(R.id.setbutton) as Button
         reset = setView.findViewById(R.id.reset) as Button
+        currentNum = setView.findViewById(R.id.currentnum) as TextView
+        if (currentNumber != "")
+            currentNum.setText(getString(R.string.currentnum) + currentNumber)
         reset.setOnClickListener({_ : View ->
             val AlertDialog : AlertDialog.Builder = AlertDialog.Builder(activity)
             AlertDialog.setTitle(getString(R.string.resetPalette))
@@ -65,7 +71,7 @@ class Fragment2 : Fragment() {
                     .setPositiveButton(getString(R.string.yes), {_ : DialogInterface, _ : Int ->
                         editor.remove("number")
                         editor.apply()
-                        setText.setText("")
+                        setNumber("")
                     })
                     .setNegativeButton(getString(R.string.no), {_ : DialogInterface, _ : Int ->
                         setText.clearFocus()
@@ -82,7 +88,7 @@ class Fragment2 : Fragment() {
                 }
             }
         }
-        setButton.setOnClickListener(View.OnClickListener { _ : View ->
+        setButton.setOnClickListener({ _: View ->
             val currentText : String = setText.text.toString()
             when(currentText) {
                 "" -> {
@@ -110,16 +116,17 @@ class Fragment2 : Fragment() {
                                 Log.i("logSec","Number not found")
                                 editor.putString("number", formatString)
                                 editor.apply()
+                                setNumber(formatString)
                                 Toast.makeText(activity, getString(R.string.palettesaved), Toast.LENGTH_LONG).show()
                             }
                             else -> {
-                                Log.i("logSec","Number found!!!!")
                                 val AlertDialog : AlertDialog.Builder = AlertDialog.Builder(activity)
                                 AlertDialog.setTitle("Change Number")
                                         .setMessage("Do you want to override your current number")
                                         .setPositiveButton(getString(R.string.yes), { _, _ ->
                                             editor.putString("number", formatString)
                                             editor.apply()
+                                            setNumber(formatString)
                                             Toast.makeText(activity, getString(R.string.palettesaved), Toast.LENGTH_LONG).show()
                                         })
                                         .setNegativeButton(getString(R.string.no), { _, _ ->
@@ -163,8 +170,16 @@ class Fragment2 : Fragment() {
         return setView
     }
 
+    @SuppressLint("SetTextI18n")
     fun setNumber(newNum : String) {
         setText.setText(newNum)
+        if (newNum != "") {
+            currentNum.setText(getString(R.string.currentnum) + newNum)
+            Fragment1.setCurrentNum(newNum)
+        } else {
+            currentNum.text = ""
+            Fragment1.setCurrentNum("No Number")
+        }
     }
 
     fun clearFocusForText() {

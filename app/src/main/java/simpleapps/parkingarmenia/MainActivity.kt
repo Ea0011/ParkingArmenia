@@ -13,12 +13,16 @@ import android.util.Log
 
 class MainActivity : AppCompatActivity() {
 
-    private val secret : String = "logSec"
     private lateinit var tabView : TabLayout
-    private lateinit var viewPager : ViewPager
     private lateinit var preferences : SharedPreferences
 
-    override fun onCreate(savedInstanceState : Bundle?) : Unit {
+    companion object {
+        private lateinit var viewPager: ViewPager
+        private val secret: String = "logSec"
+        fun getCurrentViewPager(): ViewPager? = viewPager
+    }
+
+    override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
         preferences = getSharedPreferences("carid", Context.MODE_PRIVATE)
@@ -30,9 +34,7 @@ class MainActivity : AppCompatActivity() {
         * Tab Selected Event Handler
          */
         class OnTabSelectedListener : TabLayout.OnTabSelectedListener {
-            private fun getFragment(index : Int) : Fragment {
-                return supportFragmentManager.findFragmentByTag("android:switcher:" + R.id.viewpager + ":" + index)
-            }
+            private fun getFragment(index: Int): Fragment = supportFragmentManager.findFragmentByTag("android:switcher:" + R.id.viewpager + ":" + index)
 
             override fun onTabReselected(tab: TabLayout.Tab?) {
                 viewPager.setCurrentItem(tab!!.position)
@@ -51,7 +53,6 @@ class MainActivity : AppCompatActivity() {
 
             override fun onTabSelected(tab: TabLayout.Tab?) {
                 viewPager.setCurrentItem(tab!!.position)
-                Log.i(secret, tab.position.toString() + "Selected")
             }
 
         }
@@ -62,56 +63,42 @@ class MainActivity : AppCompatActivity() {
      */
     private class CustomAdapter(fmManager : FragmentManager) : FragmentPagerAdapter(fmManager) {
         private val fragments : List<String> = listOf("Home", "Settings")
-        override fun getItem(position: Int): Fragment? {
-            when(position) {
-                0 -> return Fragment1()
-                1 -> return Fragment2()
-                else -> return null
-            }
+        override fun getItem(position: Int): Fragment? = when (position) {
+            0 -> Fragment1()
+            1 -> Fragment2()
+            else -> null
         }
 
-        override fun getCount(): Int {
-            return fragments.size
-        }
+        override fun getCount(): Int = fragments.size
 
-        override fun getPageTitle(position: Int): CharSequence {
-            return fragments[position]
-        }
+        override fun getPageTitle(position: Int): CharSequence = fragments[position]
     }
 
     override fun onPause() {
         super.onPause()
         Log.i(secret, "activity paused")
-//        save activity state
     }
 
     override fun onSaveInstanceState(outState: Bundle?) {
         super.onSaveInstanceState(outState)
-        Log.i(secret, "instance saved")
-//        saved state
     }
 
     override fun onRestoreInstanceState(savedInstanceState: Bundle?) {
         super.onRestoreInstanceState(savedInstanceState)
-        Log.i(secret, "instance restored")
-//        restored state
     }
 
     override fun onResume() {
         super.onResume()
-        Log.i(secret, "activity paused")
-//        activity resumed.. restore state
+//        TODO  restore timer state
     }
 
     override fun onStop() {
         super.onStop()
-        Log.i(secret, "activity paused")
-//        save activity state
+//        TODO save current timer state and current time to shared preferences
     }
 
     override fun onRestart() {
         super.onRestart()
-        Log.i(secret, "activity paused")
-//        restore state
+//        TODO restore timer state using saved time and current time
     }
 }
