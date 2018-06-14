@@ -1,0 +1,12 @@
+<resources>
+    <string name="app_name">Parking Armenia</string>
+    <string name="day">1 day</string>
+    <string name="year">1 year</string>
+    <string name="settings">settings</string>
+    <string name="add_car">add a car</string>
+    <string name="no_license_yet">No registration numbers yet!!</string>
+    <string name="add_license_number">Add License number</string>
+    <string name="hint_serial">Serial Number</string>
+    <string name="btn_save">Save</string>
+    <string name="btn_cancel">Cancel</string>
+</resources>
