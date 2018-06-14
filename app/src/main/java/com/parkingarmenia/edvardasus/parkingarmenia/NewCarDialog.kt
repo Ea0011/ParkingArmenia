@@ -1,5 +1,6 @@
 package com.parkingarmenia.edvardasus.parkingarmenia
 
+import android.app.Dialog
 import android.app.DialogFragment
 import android.os.Bundle
 import android.support.design.widget.TextInputEditText
@@ -12,6 +13,7 @@ import android.widget.Button
 import data.Car
 import data.Cars
 import data.onNewCarAddedListener
+import kotlinx.android.synthetic.main.activity_add_car.*
 import java.util.regex.Matcher
 import java.util.regex.Pattern
 
@@ -22,7 +24,7 @@ class NewCarDialog : DialogFragment() {
     private fun formatText(str: String): String = str.replace("\\s".toRegex(), "").toLowerCase()
 
     override fun onCreateView(inflater: LayoutInflater?, container: ViewGroup?, savedInstanceState: Bundle?): View {
-        dialog.setTitle(getString(R.string.add_car))
+        dialog.setTitle(R.string.add_car)
 
         val v = inflater!!.inflate(R.layout.activity_add_car, container, false)
 
@@ -60,7 +62,7 @@ class NewCarDialog : DialogFragment() {
             if (!focus) {
                 txtSerial.hint = getString(R.string.hint_serial)
             } else {
-                txtSerial.hint = "77ll001"
+                txtSerial.hint = "77LL001"
             }
         }
 
@@ -71,4 +73,5 @@ class NewCarDialog : DialogFragment() {
         super.onDetach()
         mOnNewCarAddedCallBack = null
     }
+
 }

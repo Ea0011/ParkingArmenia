@@ -1,7 +1,7 @@
 <resources>
     <string name="app_name">Parking Armenia</string>
-    <string name="day">1 day</string>
-    <string name="year">1 year</string>
+    <string name="day">1 hour</string>
+    <string name="year">1 day</string>
     <string name="settings">settings</string>
     <string name="add_car">add a car</string>
     <string name="no_license_yet">No registration numbers yet!!</string>
@@ -9,4 +9,7 @@
     <string name="hint_serial">Serial Number</string>
     <string name="btn_save">Save</string>
     <string name="btn_cancel">Cancel</string>
+    <string name="btn_delete">Delete</string>
+    <string name="incorrect_format">Incorrect format</string>
+    <string name="edit_car">edit car</string>
 </resources>

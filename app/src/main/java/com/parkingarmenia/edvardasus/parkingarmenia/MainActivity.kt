@@ -11,7 +11,33 @@ import com.getbase.floatingactionbutton.FloatingActionsMenu
 import com.getbase.floatingactionbutton.FloatingActionButton
 import data.*
 
-class MainActivity : AppCompatActivity(), onItemClickListener, onTopItemChangedListener, onNewCarAddedListener {
+class MainActivity : AppCompatActivity(), onItemClickListener, onTopItemChangedListener, onNewCarAddedListener, onCarEditListener {
+    override fun onCarEdited(position: Int, newSerial : String, delete : Boolean) {
+
+        if (delete) {
+            Cars.getInstance(this).mCars.removeAt(position)
+            Cars.getInstance(this).save()
+
+            //check if no elements left and change to appropriate fragment
+
+            if (Cars.getInstance(this).mCars.size == 0) {
+                val fm = fragmentManager
+                val currentFg = fm.findFragmentById(R.id.carListFrameHolder)
+
+                if (currentFg == null || currentFg is CarListFragment) {
+                    fm.beginTransaction().replace(R.id.carListFrameHolder, EmptyCarsListFragment()).commit()
+                }
+            } else {
+                (fragmentManager.findFragmentById(R.id.carListFrameHolder) as CarListFragment).dataChanged()
+            }
+        } else {
+            Cars.getInstance(this).mCars[position] = Car(newSerial)
+            Cars.getInstance(this).save()
+            (fragmentManager.findFragmentById(R.id.carListFrameHolder) as CarListFragment).dataChanged()
+        }
+
+    }
+
     override fun onNewCarAdded(serial: String) {
 
         Cars.getInstance(this).mCars.add(Car(serial))
@@ -25,6 +51,7 @@ class MainActivity : AppCompatActivity(), onItemClickListener, onTopItemChangedL
         } else {
             (currentFm).dataChanged()
         }
+
     }
 
     override fun onTopItemChanged(position: Int) {
@@ -37,9 +64,9 @@ class MainActivity : AppCompatActivity(), onItemClickListener, onTopItemChangedL
     }
 
     override fun onCardClicked(view : View, position: Int) {
-        Cars.getInstance(this).mCars.removeAt(position)
-        (fragmentManager.findFragmentById(R.id.carListFrameHolder) as CarListFragment).dataChanged()
-    }
+        val editDialog = EditCarDialog.newInstance(position)
+        editDialog.show(fragmentManager, "111")
+     }
 
     private lateinit var mFloatingActionButtonAddCar : FloatingActionButton
     private lateinit var mFloatingActionButtonDay : FloatingActionButton
@@ -78,9 +105,12 @@ class MainActivity : AppCompatActivity(), onItemClickListener, onTopItemChangedL
         fmTransaction.commit()
 
         mFloatingActionButtonAddCar.setOnClickListener {
-            val newCarDialog : NewCarDialog = NewCarDialog()
+            val newCarDialog = NewCarDialog()
             newCarDialog.show(fragmentManager, "123")
+            mFloatingActionMenu.collapse()
         }
+
+        //TODO implement sending SMS
     }
 
     override fun onCreateOptionsMenu(menu: Menu?): Boolean {
@@ -137,6 +167,8 @@ class MainActivity : AppCompatActivity(), onItemClickListener, onTopItemChangedL
     override fun onBackPressed() {
         if (mFloatingActionMenu.isExpanded) {
             mFloatingActionMenu.collapse()
+        } else {
+            super.onBackPressed()
         }
     }
 

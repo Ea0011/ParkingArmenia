@@ -11,10 +11,9 @@
         android:layout_width="wrap_content"
         android:layout_height="378dp"
         android:layout_marginBottom="8dp"
-        android:layout_marginEnd="16dp"
         android:layout_marginTop="276dp"
-        app:fab_addButtonColorNormal="@color/colorAccent"
-        app:fab_addButtonColorPressed="@color/colorPrimaryDark"
+        app:fab_addButtonColorNormal="@color/colorPrimaryDark"
+        app:fab_addButtonColorPressed="@color/colorAccent"
         app:fab_addButtonPlusIconColor="@color/buttonNormal"
         app:fab_addButtonSize="normal"
         app:fab_expandDirection="up"
@@ -22,15 +21,16 @@
         app:fab_labelsPosition="left"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toTopOf="parent">
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.902">
 
         <com.getbase.floatingactionbutton.FloatingActionButton
             android:id="@+id/action_day"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            app:fab_colorNormal="@color/buttonNormal"
+            app:fab_colorNormal="@color/colorAccent"
             app:fab_colorPressed="@color/buttonPresses"
-            app:fab_icon="@drawable/baseline_message_black_24"
+            app:fab_icon="@drawable/baseline_message_white_24"
             app:fab_size="mini"
             app:fab_title="@string/day" />
 
@@ -38,9 +38,9 @@
             android:id="@+id/action_year"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            app:fab_colorNormal="@color/buttonNormal"
+            app:fab_colorNormal="@color/colorAccent"
             app:fab_colorPressed="@color/buttonPresses"
-            app:fab_icon="@drawable/baseline_message_black_24"
+            app:fab_icon="@drawable/baseline_message_white_24"
             app:fab_size="mini"
             app:fab_title="@string/year" />
 
@@ -48,9 +48,9 @@
             android:id="@+id/action_add_car"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            app:fab_colorNormal="@color/buttonNormal"
+            app:fab_colorNormal="@color/colorAccent"
             app:fab_colorPressed="@color/buttonPresses"
-            app:fab_icon="@drawable/baseline_directions_car_black_24"
+            app:fab_icon="@drawable/baseline_directions_car_white_24"
             app:fab_size="mini"
             app:fab_title="@string/add_car" />
 
@@ -62,9 +62,8 @@
         android:layout_height="155dp"
         android:layout_marginEnd="8dp"
         android:layout_marginStart="8dp"
-        android:layout_marginTop="40dp"
+        android:layout_marginTop="16dp"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.495"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent">
 

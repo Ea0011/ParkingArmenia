@@ -8,7 +8,7 @@
 
 
     <android.support.design.widget.TextInputLayout
-        android:id="@+id/txtSerialInput"
+        android:id="@+id/txtSerialEdit"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_marginEnd="8dp"
@@ -27,11 +27,41 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:inputType="textCapCharacters"
-            android:textSize="20sp"/>
+            android:textSize="20sp" />
     </android.support.design.widget.TextInputLayout>
 
     <Button
-        android:id="@+id/btnSave"
+        android:id="@+id/btnDeleteEdit"
+        style="@style/Widget.AppCompat.Button.Borderless.Colored"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginEnd="8dp"
+        android:layout_marginStart="8dp"
+        android:layout_marginTop="40dp"
+        android:text="@string/btn_delete"
+        android:typeface="monospace"
+        app:layout_constraintEnd_toStartOf="@+id/btnSaveEdit"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/txtSerialEdit" />
+
+    <Button
+        android:id="@+id/btnCancelEdit"
+        style="@style/Widget.AppCompat.Button.Borderless.Colored"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginEnd="108dp"
+        android:layout_marginStart="8dp"
+        android:layout_marginTop="40dp"
+        android:text="@string/btn_cancel"
+        android:typeface="monospace"
+        app:layout_constraintEnd_toStartOf="@+id/btnSaveEdit"
+        app:layout_constraintHorizontal_bias="0.21"
+        app:layout_constraintStart_toEndOf="@+id/btnDeleteEdit"
+        app:layout_constraintTop_toBottomOf="@+id/txtSerialEdit" />
+
+    <Button
+        android:id="@+id/btnSaveEdit"
         style="@style/Widget.AppCompat.Button.Colored"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
@@ -40,22 +70,5 @@
         android:text="@string/btn_save"
         android:typeface="monospace"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/txtSerialInput" />
-
-    <Button
-        android:id="@+id/btnCancel"
-        style="@style/Widget.AppCompat.Button.Borderless.Colored"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginEnd="208dp"
-        android:layout_marginStart="8dp"
-        android:layout_marginTop="40dp"
-        android:text="@string/btn_cancel"
-        android:typeface="monospace"
-        app:layout_constraintEnd_toStartOf="@+id/btnSave"
-        app:layout_constraintHorizontal_bias="0.0"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/txtSerialInput" />
-
-
+        app:layout_constraintTop_toBottomOf="@+id/txtSerialEdit" />
 </android.support.constraint.ConstraintLayout>

@@ -4,12 +4,9 @@ import android.app.Fragment
 import android.content.Context
 import android.os.Bundle
 import android.support.v7.widget.*
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.view.animation.Animation
-import android.widget.AdapterView
 import android.widget.TextView
 import com.azoft.carousellayoutmanager.CarouselLayoutManager
 import com.azoft.carousellayoutmanager.CarouselZoomPostLayoutListener
@@ -18,15 +15,18 @@ import data.Car
 import data.Cars
 import data.onItemClickListener
 import data.onTopItemChangedListener
-import java.text.FieldPosition
 
 class CarListFragment : Fragment() {
 
     private var mOnItemClickCallback: onItemClickListener? = null
-    private var monTopItemChangedCallback: onTopItemChangedListener? = null
+    private var mOnTopItemChangedCallback: onTopItemChangedListener? = null
 
     fun dataChanged() {
         mCarsListRecyclerAdapter.dataChanged()
+    }
+
+    fun scrollToPosition(position: Int) {
+        mRecyclerView.scrollToPosition(position)
     }
 
     inner class CarsRecyclerViewAdapter(ctx : Context) : RecyclerView.Adapter<CarsRecyclerViewAdapter.ViewHolder>(){
@@ -69,6 +69,7 @@ class CarListFragment : Fragment() {
     }
 
     private lateinit var mCarsListRecyclerAdapter : CarsRecyclerViewAdapter
+    private lateinit var mRecyclerView: RecyclerView
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -78,30 +79,31 @@ class CarListFragment : Fragment() {
     override fun onAttach(context: Context?) {
         super.onAttach(context)
         mOnItemClickCallback = activity as onItemClickListener
-        monTopItemChangedCallback = activity as onTopItemChangedListener
+        mOnTopItemChangedCallback = activity as onTopItemChangedListener
     }
 
     override fun onCreateView(inflater: LayoutInflater?, container: ViewGroup?, savedInstanceState: Bundle?): View {
         val v : View = inflater!!.inflate(R.layout.car_list_fragment, container, false)
 
-        val recyclerView : RecyclerView = v.findViewById(R.id.recyclerCards)
+        mRecyclerView = v.findViewById(R.id.recyclerCards)
         val layoutManager = CarouselLayoutManager(CarouselLayoutManager.HORIZONTAL, false)
         layoutManager.setPostLayoutListener(object : CarouselZoomPostLayoutListener() {})
         layoutManager.addOnItemSelectionListener {
             // here we get the position of the top element: IT
-            monTopItemChangedCallback?.onTopItemChanged(it)
+            mOnTopItemChangedCallback?.onTopItemChanged(it)
         }
-        recyclerView.layoutManager = layoutManager
-        recyclerView.setHasFixedSize(true)
-        recyclerView.addOnScrollListener(object : CenterScrollListener() {})
-        recyclerView.adapter = mCarsListRecyclerAdapter
+        mRecyclerView.layoutManager = layoutManager
+        mRecyclerView.setHasFixedSize(true)
+        mRecyclerView.addOnScrollListener(object : CenterScrollListener() {})
+        mRecyclerView.adapter = mCarsListRecyclerAdapter
+
         return v
     }
 
     override fun onDetach() {
         super.onDetach()
         mOnItemClickCallback = null
-        monTopItemChangedCallback = null
+        mOnTopItemChangedCallback = null
     }
 
 }
