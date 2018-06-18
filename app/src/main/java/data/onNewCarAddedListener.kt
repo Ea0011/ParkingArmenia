@@ -1,5 +1,5 @@
 package data
 
-interface onNewCarAddedListener {
+interface OnNewCarAddedListener {
     fun onNewCarAdded(serial : String)
 }

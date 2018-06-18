@@ -1,73 +1,83 @@
 <?xml version="1.0" encoding="utf-8"?>
-<android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
-    xmlns:tools="http://schemas.android.com/tools"
-    android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    tools:context=".MainActivity">
+<android.support.design.widget.CoordinatorLayout android:layout_width="match_parent" android:layout_height="match_parent"
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/root"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
 
-    <com.getbase.floatingactionbutton.FloatingActionsMenu
-        android:id="@+id/expandableMenu"
-        android:layout_width="wrap_content"
-        android:layout_height="378dp"
-        android:layout_marginBottom="8dp"
-        android:layout_marginTop="276dp"
-        app:fab_addButtonColorNormal="@color/colorPrimaryDark"
-        app:fab_addButtonColorPressed="@color/colorAccent"
-        app:fab_addButtonPlusIconColor="@color/buttonNormal"
-        app:fab_addButtonSize="normal"
-        app:fab_expandDirection="up"
-        app:fab_labelStyle="@style/menu_labels_style_small"
-        app:fab_labelsPosition="left"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.902">
+    <com.parkingarmenia.edvardasus.parkingarmenia.MoveUpFABMenu xmlns:android="http://schemas.android.com/apk/res/android"
+        xmlns:app="http://schemas.android.com/apk/res-auto"
+        xmlns:tools="http://schemas.android.com/tools"
+        android:id="@+id/constraintLayout"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        tools:context=".MainActivity">
 
-        <com.getbase.floatingactionbutton.FloatingActionButton
-            android:id="@+id/action_day"
+        <com.getbase.floatingactionbutton.FloatingActionsMenu
+            android:id="@+id/expandableMenu"
             android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            app:fab_colorNormal="@color/colorAccent"
-            app:fab_colorPressed="@color/buttonPresses"
-            app:fab_icon="@drawable/baseline_message_white_24"
-            app:fab_size="mini"
-            app:fab_title="@string/day" />
+            android:layout_height="378dp"
+            android:layout_marginBottom="8dp"
+            android:layout_marginEnd="16dp"
+            android:layout_marginTop="276dp"
+            app:fab_addButtonColorNormal="@color/colorPrimaryDark"
+            app:fab_addButtonColorPressed="@color/colorAccent"
+            app:fab_addButtonPlusIconColor="@color/buttonNormal"
+            app:fab_addButtonSize="normal"
+            app:fab_expandDirection="up"
+            app:fab_labelStyle="@style/menu_labels_style_small"
+            app:fab_labelsPosition="left"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintVertical_bias="1.0">
 
-        <com.getbase.floatingactionbutton.FloatingActionButton
-            android:id="@+id/action_year"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            app:fab_colorNormal="@color/colorAccent"
-            app:fab_colorPressed="@color/buttonPresses"
-            app:fab_icon="@drawable/baseline_message_white_24"
-            app:fab_size="mini"
-            app:fab_title="@string/year" />
+            <com.getbase.floatingactionbutton.FloatingActionButton
+                android:id="@+id/action_day"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                app:fab_colorNormal="@color/colorAccent"
+                app:fab_colorPressed="@color/buttonPresses"
+                app:fab_icon="@drawable/baseline_message_white_24"
+                app:fab_size="mini"
+                app:fab_title="@string/day" />
 
-        <com.getbase.floatingactionbutton.FloatingActionButton
-            android:id="@+id/action_add_car"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            app:fab_colorNormal="@color/colorAccent"
-            app:fab_colorPressed="@color/buttonPresses"
-            app:fab_icon="@drawable/baseline_directions_car_white_24"
-            app:fab_size="mini"
-            app:fab_title="@string/add_car" />
+            <com.getbase.floatingactionbutton.FloatingActionButton
+                android:id="@+id/action_year"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                app:fab_colorNormal="@color/colorAccent"
+                app:fab_colorPressed="@color/buttonPresses"
+                app:fab_icon="@drawable/baseline_message_white_24"
+                app:fab_size="mini"
+                app:fab_title="@string/year" />
 
-    </com.getbase.floatingactionbutton.FloatingActionsMenu>
+            <com.getbase.floatingactionbutton.FloatingActionButton
+                android:id="@+id/action_add_car"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                app:fab_colorNormal="@color/colorAccent"
+                app:fab_colorPressed="@color/buttonPresses"
+                app:fab_icon="@drawable/baseline_directions_car_white_24"
+                app:fab_size="mini"
+                app:fab_title="@string/add_car" />
 
-    <FrameLayout
+        </com.getbase.floatingactionbutton.FloatingActionsMenu>
+
+    </com.parkingarmenia.edvardasus.parkingarmenia.MoveUpFABMenu>
+
+    <android.support.design.widget.CoordinatorLayout
         android:id="@+id/carListFrameHolder"
         android:layout_width="286dp"
         android:layout_height="155dp"
         android:layout_marginEnd="8dp"
         android:layout_marginStart="8dp"
         android:layout_marginTop="16dp"
+        app:layout_anchor="@+id/constraintLayout"
+        app:layout_anchorGravity="top|center"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent">
 
-    </FrameLayout>
+    </android.support.design.widget.CoordinatorLayout>
 
-
-</android.support.constraint.ConstraintLayout>
+</android.support.design.widget.CoordinatorLayout>

@@ -30,5 +30,7 @@
         android:text="@string/add_license_number"
         app:layout_constraintEnd_toEndOf="@+id/textView"
         app:layout_constraintStart_toStartOf="@+id/textView"
-        app:layout_constraintTop_toBottomOf="@+id/textView" />
+        app:layout_constraintTop_toBottomOf="@+id/textView"
+        android:typeface="monospace"
+        android:textStyle="bold"/>
 </android.support.constraint.ConstraintLayout>

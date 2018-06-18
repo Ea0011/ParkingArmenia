@@ -4,32 +4,20 @@ import android.content.Context
 
 class Cars private constructor() {
 
-    var mJSONSerializer: JSONSerializer? = null
-        private set(value) { field = value }
-
-    var mCars : ArrayList<Car> = ArrayList()
+    var mDb : NumbersDataManager? = null
         private set(value) { field = value }
 
     companion object {
         private var INSTANCE : Cars = Cars()
 
         fun getInstance(ctx : Context) : Cars {
-            if (INSTANCE.mJSONSerializer == null) {
-                INSTANCE.mJSONSerializer = JSONSerializer("Parking_Armenia", ctx)
-                INSTANCE.load()
-                INSTANCE.save()
+
+            if (INSTANCE.mDb == null) {
+                INSTANCE.mDb = NumbersDataManager(ctx)
             }
+
             return INSTANCE
         }
-    }
-
-    fun save() {
-        mJSONSerializer!!.save(mCars)
-    }
-
-    fun load() : ArrayList<Car> {
-       mCars = mJSONSerializer!!.load()
-       return mCars
     }
 
 }

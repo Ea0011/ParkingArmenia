@@ -1,5 +1,5 @@
 package data
 
-interface onTopItemChangedListener {
-    public fun onTopItemChanged(position: Int)
+interface OnTopItemChangedListener {
+    fun onTopItemChanged(position: Int, serial : String)
 }
