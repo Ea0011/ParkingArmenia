@@ -4,16 +4,13 @@ import android.app.DialogFragment
 import android.os.Bundle
 import android.support.design.widget.TextInputEditText
 import android.support.design.widget.TextInputLayout
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.Button
-import data.Car
 import data.Cars
-import data.onCarEditListener
-import data.onNewCarAddedListener
-import java.io.PipedReader
+import data.NumbersDataManager
+import data.OnCarEditListener
 import java.util.regex.Matcher
 import java.util.regex.Pattern
 
@@ -21,12 +18,13 @@ class EditCarDialog : DialogFragment() {
 
     private fun formatText(str: String): String = str.replace("\\s".toRegex(), "").toLowerCase()
 
-    private var mOnCarEditCallBack : onCarEditListener? = null
+    private var mOnCarEditCallBack : OnCarEditListener? = null
 
     companion object {
-        fun newInstance(editPosition : Int) : EditCarDialog {
+        fun newInstance(editPosition : Int, editSerial : String) : EditCarDialog {
             val params = Bundle()
             params.putInt("position", editPosition)
+            params.putString("serial", editSerial)
 
             val fg = EditCarDialog()
             fg.arguments = params
@@ -39,7 +37,10 @@ class EditCarDialog : DialogFragment() {
         val v: View = inflater!!.inflate(R.layout.edit_car, container, false)
 
         val txtInput: TextInputEditText = v.findViewById(R.id.txtSerialEditText)
-        txtInput.setText(Cars.getInstance(activity).mCars[arguments.getInt("position")].mSerial.toUpperCase())
+        val c = Cars.getInstance(activity).mDb!!.searchPosition(arguments.getString("serial"))
+        c.moveToFirst()
+        txtInput.setText(c.getString(c.getColumnIndex(NumbersDataManager.TABLE_ROW_NUMBER)).toUpperCase())
+        val currentText = txtInput.text.toString()
         val btnDelete: Button = v.findViewById(R.id.btnDeleteEdit)
         val btnCancel: Button = v.findViewById(R.id.btnCancelEdit)
         val btnSave: Button = v.findViewById(R.id.btnSaveEdit)
@@ -52,11 +53,19 @@ class EditCarDialog : DialogFragment() {
 
             //if pattern is correct
             if (matcher.find()) {
-                mOnCarEditCallBack = activity as onCarEditListener
-                mOnCarEditCallBack!!.onCarEdited(arguments.getInt("position"), text, false)
+                val cursor = Cars.getInstance(activity).mDb!!.searchPosition(text)
 
-                mOnCarEditCallBack = null
-                dismiss()
+                if(cursor.moveToFirst() && text.toUpperCase() != currentText.toUpperCase()) {
+                    val txtLayout: TextInputLayout = v.findViewById(R.id.txtSerialEdit)
+                    txtLayout.error = getString(R.string.already_exists)
+                } else {
+
+                    mOnCarEditCallBack = activity as OnCarEditListener
+                    mOnCarEditCallBack!!.onCarEdited(arguments.getString("serial"), arguments.getInt("position"), text, false)
+
+                    mOnCarEditCallBack = null
+                    dismiss()
+                }
             } else {
                 val txtLayout: TextInputLayout = v.findViewById(R.id.txtSerialEdit)
                 txtLayout.error = getString(R.string.incorrect_format)
@@ -68,8 +77,8 @@ class EditCarDialog : DialogFragment() {
         }
 
         btnDelete.setOnClickListener {
-            mOnCarEditCallBack = activity as onCarEditListener
-            mOnCarEditCallBack!!.onCarEdited(arguments.getInt("position"), "", true)
+            mOnCarEditCallBack = activity as OnCarEditListener
+            mOnCarEditCallBack!!.onCarEdited(arguments.getString("serial"), arguments.getInt("position"), "", true)
 
             mOnCarEditCallBack = null
             dismiss()
@@ -79,7 +88,7 @@ class EditCarDialog : DialogFragment() {
             if (!focus) {
                 txtInput.hint = getString(R.string.hint_serial)
             } else {
-                txtInput.hint = "77LL001"
+                txtInput.hint = getString(R.string.example_hint)
             }
         }
 

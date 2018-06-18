@@ -3,7 +3,8 @@ package com.parkingarmenia.edvardasus.parkingarmenia
 import android.app.Fragment
 import android.content.Context
 import android.os.Bundle
-import android.support.v7.widget.*
+import android.support.v7.widget.CardView
+import android.support.v7.widget.RecyclerView
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -13,25 +14,21 @@ import com.azoft.carousellayoutmanager.CarouselZoomPostLayoutListener
 import com.azoft.carousellayoutmanager.CenterScrollListener
 import data.Car
 import data.Cars
+import data.OnTopItemChangedListener
 import data.onItemClickListener
-import data.onTopItemChangedListener
 
 class CarListFragment : Fragment() {
 
     private var mOnItemClickCallback: onItemClickListener? = null
-    private var mOnTopItemChangedCallback: onTopItemChangedListener? = null
+    private var mOnTopItemChangedCallback: OnTopItemChangedListener? = null
 
     fun dataChanged() {
         mCarsListRecyclerAdapter.dataChanged()
     }
 
-    fun scrollToPosition(position: Int) {
-        mRecyclerView.scrollToPosition(position)
-    }
-
     inner class CarsRecyclerViewAdapter(ctx : Context) : RecyclerView.Adapter<CarsRecyclerViewAdapter.ViewHolder>(){
 
-        private var mCarsList : ArrayList<Car> = Cars.getInstance(ctx).load()
+        var mCarsList : ArrayList<Car> = Cars.getInstance(activity).mDb!!.load()
         private var mLayoutInflater : LayoutInflater? = LayoutInflater.from(ctx)
 
         override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
@@ -44,6 +41,7 @@ class CarListFragment : Fragment() {
         }
 
         fun dataChanged() {
+            mCarsListRecyclerAdapter.mCarsList = Cars.getInstance(activity).mDb!!.load()
             notifyDataSetChanged()
         }
 
@@ -60,7 +58,7 @@ class CarListFragment : Fragment() {
            }
 
            override fun onClick(view: View?) {
-               mOnItemClickCallback?.onCardClicked(view!!, adapterPosition)
+               mOnItemClickCallback!!.onCardClicked(view!!, mCarsList[adapterPosition].mId, mCarsList[adapterPosition].mSerial)
            }
 
             val carSerial: TextView = view.findViewById(R.id.txtCarSerial)
@@ -74,12 +72,14 @@ class CarListFragment : Fragment() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         mCarsListRecyclerAdapter = CarsRecyclerViewAdapter(activity)
+        mCarsListRecyclerAdapter.mCarsList = Cars.getInstance(activity).mDb!!.load()
+        mCarsListRecyclerAdapter.dataChanged()
     }
 
     override fun onAttach(context: Context?) {
         super.onAttach(context)
         mOnItemClickCallback = activity as onItemClickListener
-        mOnTopItemChangedCallback = activity as onTopItemChangedListener
+        mOnTopItemChangedCallback = activity as OnTopItemChangedListener
     }
 
     override fun onCreateView(inflater: LayoutInflater?, container: ViewGroup?, savedInstanceState: Bundle?): View {
@@ -90,7 +90,9 @@ class CarListFragment : Fragment() {
         layoutManager.setPostLayoutListener(object : CarouselZoomPostLayoutListener() {})
         layoutManager.addOnItemSelectionListener {
             // here we get the position of the top element: IT
-            mOnTopItemChangedCallback?.onTopItemChanged(it)
+            if (it != -1) {
+                mOnTopItemChangedCallback!!.onTopItemChanged(it, mCarsListRecyclerAdapter.mCarsList[it].mSerial)
+            }
         }
         mRecyclerView.layoutManager = layoutManager
         mRecyclerView.setHasFixedSize(true)
