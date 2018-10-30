@@ -2,8 +2,13 @@
 <shape xmlns:android="http://schemas.android.com/apk/res/android">
     <stroke
         android:width="1dp"
+<<<<<<< HEAD
         android:color="@color/colorPrimaryDark" />
     <solid android:color="@color/colorPrimaryDark" />
+=======
+        android:color="@android:color/holo_orange_light" />
+    <solid android:color="@android:color/holo_orange_light" />
+>>>>>>> ver2/feat
     <padding
         android:left="1dp"
         android:right="1dp"

@@ -1,8 +1,14 @@
 *.iml
 .gradle
 /local.properties
+<<<<<<< HEAD
 /.idea/workspace.xml
 /.idea/libraries
+=======
+/.idea/libraries
+/.idea/modules.xml
+/.idea/workspace.xml
+>>>>>>> ver2/feat
 .DS_Store
 /build
 /captures

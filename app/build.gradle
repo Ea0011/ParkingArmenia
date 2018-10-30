@@ -1,4 +1,5 @@
 apply plugin: 'com.android.application'
+<<<<<<< HEAD
 apply plugin: 'kotlin-android'
 
 android {
@@ -8,6 +9,19 @@ android {
         applicationId "simpleapps.parkingarmenia"
         minSdkVersion 15
         targetSdkVersion 25
+=======
+
+apply plugin: 'kotlin-android'
+
+apply plugin: 'kotlin-android-extensions'
+
+android {
+    compileSdkVersion 27
+    defaultConfig {
+        applicationId "com.parkingarmenia.edvardasus.parkingarmenia"
+        minSdkVersion 19
+        targetSdkVersion 27
+>>>>>>> ver2/feat
         versionCode 1
         versionName "1.0"
         testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
@@ -21,6 +35,7 @@ android {
 }
 
 dependencies {
+<<<<<<< HEAD
     compile fileTree(dir: 'libs', include: ['*.jar'])
     androidTestCompile('com.android.support.test.espresso:espresso-core:2.2.2', {
         exclude group: 'com.android.support', module: 'support-annotations'
@@ -33,4 +48,18 @@ dependencies {
 }
 repositories {
     mavenCentral()
+=======
+    implementation fileTree(dir: 'libs', include: ['*.jar'])
+    implementation "org.jetbrains.kotlin:kotlin-stdlib-jre7:$kotlin_version"
+    implementation 'com.android.support:appcompat-v7:27.1.1'
+    implementation 'com.android.support.constraint:constraint-layout:1.1.1'
+    testImplementation 'junit:junit:4.12'
+    androidTestImplementation 'com.android.support.test:runner:1.0.2'
+    androidTestImplementation 'com.android.support.test.espresso:espresso-core:3.0.2'
+    implementation 'com.getbase:floatingactionbutton:1.10.1'
+    implementation 'com.android.support:recyclerview-v7:27.1.1'
+    implementation 'com.android.support:cardview-v7:27.1.1'
+    implementation 'com.azoft.carousellayoutmanager:carousel:1.2.4'
+    implementation 'com.android.support:design:27.1.1'
+>>>>>>> ver2/feat
 }

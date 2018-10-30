@@ -1,6 +1,18 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
+<<<<<<< HEAD
     <color name="colorPrimary">#3fb56a</color>
     <color name="colorPrimaryDark">#35a55d</color>
     <color name="colorAccent">#ff8041</color>
+=======
+    <color name="colorPrimary">#ff6464</color>
+    <color name="colorPrimaryDark">#ff5252</color>
+    <color name="colorAccent">#881bfc</color>
+    <color name="buttonNormal">#ffffff</color>
+    <color name="buttonPresses">#adacac</color>
+    <color name="black_semi_transparent">#000000</color>
+    <color name="white">#ffffff</color>
+    <color name="light_grey">#e7e6e6</color>
+    <color name="shadow">#c8c8c8</color>
+>>>>>>> ver2/feat
 </resources>

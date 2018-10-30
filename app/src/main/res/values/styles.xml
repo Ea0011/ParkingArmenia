@@ -8,4 +8,21 @@
         <item name="colorAccent">@color/colorAccent</item>
     </style>
 
+<<<<<<< HEAD
+=======
+        <style name="menu_labels_style" parent="Widget.AppCompat.Button.Borderless">
+            <item name="android:colorBackground">@color/light_grey</item>
+            <item name="android:textSize">18sp</item>
+        </style>
+
+    <style name="menu_labels_style_small" parent="Widget.AppCompat.Button.Borderless">
+        <item name="android:colorBackground">@color/light_grey</item>
+        <item name="android:textSize">18sp</item>
+    </style>
+
+    <style name="CustomDialog" parent="@style/Theme.AppCompat.Light.Dialog">
+        <item name="android:windowNoTitle">false</item>
+    </style>
+
+>>>>>>> ver2/feat
 </resources>

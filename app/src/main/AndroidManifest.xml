@@ -1,8 +1,14 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
+<<<<<<< HEAD
     package="simpleapps.parkingarmenia">
 
     <uses-permission android:name="android.permission.SEND_SMS"/>
+=======
+    package="com.parkingarmenia.edvardasus.parkingarmenia">
+    
+    <uses-permission android:name="android.permission.SEND_SMS" />
+>>>>>>> ver2/feat
 
     <application
         android:allowBackup="true"
@@ -11,6 +17,7 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
+<<<<<<< HEAD
         <activity android:name=".MainActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
@@ -18,4 +25,22 @@
             </intent-filter>
         </activity>
     </application>
+=======
+        <activity android:name=".MainActivity"
+            android:configChanges="locale|orientation"
+            android:screenOrientation="portrait">
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
+        </activity>
+        <activity
+            android:name=".SettingsActivity"
+            android:parentActivityName=".MainActivity"
+            android:configChanges="locale|orientation"
+            android:screenOrientation="portrait">
+        </activity>
+    </application>
+
+>>>>>>> ver2/feat
 </manifest>

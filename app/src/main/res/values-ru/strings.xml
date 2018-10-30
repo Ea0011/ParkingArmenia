@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="app_name">Parking Armenia</string>
+    <string name="year">1 День</string>
+    <string name="day">1 Час</string>
+    <string name="add_car">Добавить Номер</string>
+    <string name="add_license_number">Добавить Номер</string>
+    <string name="btn_cancel">Отменить</string>
+    <string name="neutral_button">Отменить</string>
+    <string name="sim_card_error">Не удалось отправить СМС.Проверьте СИМ карту</string>
+    <string name="btn_delete">удалить</string>
+    <string name="delete_the_list">удалить весь список</string>
+    <string name="edit_car">"изменить номер "</string>
+    <string name="sms_sent_failed">Не удалось отправить СМС.Попробуйте еще раз.</string>
+    <string name="general">Общие</string>
+    <string name="incorrect_format">Неверный Формат</string>
+    <string name="language">Язык</string>
+    <string name="empty_list_warning">Ваш список номеров пуст.Хотите добавить номер?</string>
+    <string name="no_license_yet">У Вас Пока Нет Номеров!!</string>
+    <string name="positive_button">Да</string>
+    <string name="pay_day">Хотите заплатить за 1 день парковки?</string>
+    <string name="pay_hour">Хотите заплатить за 1 час парковки?</string>
+    <string name="btn_save">Сохранить</string>
+    <string name="sms_sending">СМС отправляется</string>
+    <string name="hint_serial">Номер</string>
+    <string name="settings">Настройки</string>
+    <string name="sms_sent">СМС отправлен</string>
+    <string name="undo_button">Отменить</string>
+    <string name="yes_button">ОК</string>
+    <string name="sms_permission_required">Вы должны предоставить приложению возможность отправлять СМС</string>
+    <string name="add_new_number">Добавить Новый Номер</string>
+    <string name="already_exists">Номер уже в вашем списке</string>
+    <string name="example_hint">Пр. 77LL001</string>
+</resources>
